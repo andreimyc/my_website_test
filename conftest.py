@@ -1,5 +1,5 @@
 import pytest
-from playwright.sync_api import Page, Playwright, Browser, BrowserContext
+from playwright.sync_api import Page
 
 @pytest.fixture(scope="session")
 def browser_context_args(browser_context_args):
