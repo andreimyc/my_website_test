@@ -1,11 +1,14 @@
 from playwright.sync_api import Page, expect
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 class BasePage:
     """Базовый класс для всех страниц приложения."""
     
     def __init__(self, page: Page):
         self.page = page
-        self.base_url = "https://andreimyc.github.io/my_website.io"
+        self.base_url = os.getenv("BASE_URL")
         
     def navigate(self, endpoint=""):
         """Переход на указанную страницу."""

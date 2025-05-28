@@ -7,50 +7,63 @@ class MainPage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
         # Селекторы навигации
-        self.logo = "text=LC"
+        self.logo = "text=LC1"
         self.products_link = "text=Продукция"
         self.cart_link = "text=Корзина"
-        
+  
         # Селекторы товаров
-        self.socket_image = "img:near(:text('Розетка'))"
-        self.socket_name = "text=Розетка"
+        self.socket_name = "text=Розетка1"
         self.socket_price = "text=Цена: 1000 ₽"
         self.socket_add_button = ":text('В корзину'):near(:text('Розетка'))"
         
-        self.switch_image = "img:near(:text('Выключатель'))"
-        self.switch_name = "text=Выключатель"
+        self.switch_name = "text=Выключатель1"
         self.switch_price = "text=Цена: 2000 ₽"
         self.switch_add_button = ":text('В корзину'):near(:text('Выключатель'))"
         
         # Селектор футера
-        self.footer = "text=© 2024 О нас"
+        self.footer = "text=© 2024 О нас1"
+
+        # Селекторы корзины
+        self.cart_empty_title = "text=Корзина пуста1"
     
     def navigate_to_main(self):
         """Переход на главную страницу."""
-        self.navigate("index.html")
+        self.navigate("index.html")    
     
-    def verify_navigation_elements(self):
-        """Проверка элементов навигации."""
-        self.expect_visible(self.logo)
-        self.expect_visible(self.products_link)
-        self.expect_visible(self.cart_link)
+    def is_navigation_visible(self) -> bool:
+        """Проверяет видимость элементов навигации."""
+        try:
+            return (self.page.locator(self.logo).is_visible() and
+                   self.page.locator(self.products_link).is_visible() and
+                   self.page.locator(self.cart_link).is_visible())
+        except:
+            return False
     
-    def verify_socket_product(self):
-        """Проверка отображения товара Розетка."""
-        self.expect_visible(self.socket_name)
-        self.expect_visible(self.socket_price)
-        self.expect_visible(self.socket_add_button)
+    def is_socket_product_visible(self) -> bool:
+        """Проверяет видимость товара Розетка."""
+        try:
+            return (self.page.locator(self.socket_name).is_visible() and
+                   self.page.locator(self.socket_price).is_visible() and
+                   self.page.locator(self.socket_add_button).is_visible())
+        except:
+            return False
     
-    def verify_switch_product(self):
-        """Проверка отображения товара Выключатель."""
-        self.expect_visible(self.switch_name)
-        self.expect_visible(self.switch_price)
-        self.expect_visible(self.switch_add_button)
+    def is_switch_product_visible(self) -> bool:
+        """Проверяет видимость товара Выключатель."""
+        try:
+            return (self.page.locator(self.switch_name).is_visible() and
+                   self.page.locator(self.switch_price).is_visible() and
+                   self.page.locator(self.switch_add_button).is_visible())
+        except:
+            return False
     
-    def verify_footer(self):
-        """Проверка отображения футера."""
-        self.expect_visible(self.footer)
-        self.expect_text(self.footer, "© 2024 О нас")
+    def is_footer_visible(self) -> bool:
+        """Проверяет видимость футера."""
+        try:
+            footer = self.page.locator(self.footer)
+            return footer.is_visible() and footer.text_content() == "© 2024 О нас"
+        except:
+            return False
     
     def add_socket_to_cart(self):
         """Добавление розетки в корзину."""
@@ -63,3 +76,10 @@ class MainPage(BasePage):
     def navigate_to_cart(self):
         """Переход в корзину."""
         self.click(self.cart_link) 
+
+    def is_cart_emty_title_visible(self) -> bool:
+        """Проверяет видимость заголовка пустой корзины."""
+        try:
+            return self.page.locator(self.cart_empty_title).is_visible()
+        except:
+            return False
