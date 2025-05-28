@@ -7,24 +7,24 @@ class MainPage(BasePage):
     def __init__(self, page: Page):
         super().__init__(page)
         # Селекторы навигации
-        self.logo = "text=LC1"
+        self.logo = "text=LC"
         self.products_link = "text=Продукция"
         self.cart_link = "text=Корзина"
   
         # Селекторы товаров
-        self.socket_name = "text=Розетка1"
+        self.socket_name = "text=Розетка"
         self.socket_price = "text=Цена: 1000 ₽"
         self.socket_add_button = ":text('В корзину'):near(:text('Розетка'))"
         
-        self.switch_name = "text=Выключатель1"
+        self.switch_name = "text=Выключатель"
         self.switch_price = "text=Цена: 2000 ₽"
         self.switch_add_button = ":text('В корзину'):near(:text('Выключатель'))"
         
         # Селектор футера
-        self.footer = "text=© 2024 О нас1"
+        self.footer = "text=© 2024 О нас"
 
         # Селекторы корзины
-        self.cart_empty_title = "text=Корзина пуста1"
+        self.cart_empty_title = "text=Корзина пуста"
     
     def navigate_to_main(self):
         """Переход на главную страницу."""
